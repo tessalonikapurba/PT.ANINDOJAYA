@@ -1,0 +1,19 @@
+services:
+  anindojaya-web:
+    build: .
+    container_name: anindojaya-sweetness
+    ports:
+      - "8090:80"
+      - "8091:443"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      # Mount SSL certificates if using HTTPS
+      - ./ssl:/etc/nginx/ssl:ro
+    networks:
+      - anindojaya-network
+
+networks:
+  anindojaya-network:
+    driver: bridge
